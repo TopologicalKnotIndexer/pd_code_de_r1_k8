@@ -32,15 +32,18 @@ def __get_nxt(pd_code: list) -> dict:
 
 
 
-# 深度优先搜索找环
+# 搜索找环
 def __dfs(nxt: dict, vis: list, pos: int) -> None:
     assert pos not in vis
     vis.append(pos)
 
-    for v in nxt[pos]:
-        if v not in vis:
-            __dfs(nxt, vis, v)
+    while True:
+        top_pos      = vis[-1]
+        avai_nxt_pos = [v for v in nxt[top_pos] if v not in vis]
+        if len(avai_nxt_pos) == 0: # 无路可走
             break
+        vis.append(avai_nxt_pos[0])
+
 
 
 
